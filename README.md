@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Online Library (เริ่มต้น)
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## schema
+users
+```
+{
+  "_id": ObjectId,
+  "name": "Somchai Jaidee",
+  "email": "somchai@example.com",
+  "password": "hashed_password",
+  "role": "user", // or "admin"
+  "createdAt": ISODate,
+  "updatedAt": ISODate
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+books
+```
+{
+  "_id": ObjectId,
+  "title": "Clean Code",
+  "author": "Robert C. Martin",
+  "category": "Programming",
+  "isbn": "9780132350884",
+  "stock": 5,
+  "coverUrl": "https://example.com/cleancode.jpg",
+  "createdAt": ISODate,
+  "updatedAt": ISODate
+}
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+borrows
+```
+{
+  "_id": ObjectId,
+  "userId": ObjectId("ref users"),
+  "bookId": ObjectId("ref books"),
+  "borrowDate": ISODate,
+  "returnDate": null, // filled when returned
+  "status": "borrowed" // borrowed | returned
+}
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Structure
+```
+/app
+  /auth
+    /login
+    /register
+  /books
+    /page.tsx          -> list books
+    /[id]/page.tsx     -> book detail
+  /admin
+    /books/page.tsx    -> CRUD books
+    /dashboard/page.tsx
+  /borrow
+    /page.tsx          -> user borrow history
+/lib
+  db.ts                -> connect MongoDB
+/models
+  User.ts
+  Book.ts
+  Borrow.ts
+/api
+  /auth/login
+  /auth/register
+  /books
+  /borrow
+```
