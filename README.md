@@ -1,4 +1,9 @@
-## Online Library (เริ่มต้น)
+## Online Library (ยังไม่เสร็จสมบูรณ์)
+
+
+## Technology
+ - Next.js
+ - MongoDB
 
 ## schema
 users
