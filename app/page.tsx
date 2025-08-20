@@ -1,9 +1,9 @@
-import BooksPage from "./books";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6">
-      <BooksPage />
+    <div className="p-6">
+      <Link href="/books" className="text-blue-500 hover:underline mt-4">ดูรายละเอียดหนังสือ</Link>
       </div>
   );
 }

@@ -10,8 +10,8 @@ const BookSchema = new Schema(
     coverUrl: String,
   },
   { 
-    collection: "Books",
-    timestamps: true 
+    timestamps: true,
+    collection: "books"
   }
 );
 
