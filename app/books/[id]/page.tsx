@@ -1,27 +1,30 @@
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Link from "next/link";
 
-export default function BooksDetail({ params }: { params: { id: string } }) {
+export default function BooksDetail({ params }: { params: Promise<{ id: string }> }) {
+  // 🔹 ใช้ React.use() แกะ Promise ของ params
+  const { id } = use(params);
+
   const [book, setBook] = useState<any>(null);
 
   useEffect(() => {
     void fetchBook();
-  }, []);
+  }, [id]);
 
   async function fetchBook() {
-    const response = await fetch(`/api/books/${params.id}`);
+    const response = await fetch(`/api/books/${id}`);
     if (!response.ok) {
       throw new Error("Failed to fetch book details");
     }
     const data = await response.json();
     setBook(data);
   }
+
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">รายละเอียดหนังสือ {params.id}</h1>
-      {/* Here you can fetch and display the book details based on params.id */}
-      <p>รายละเอียดหนังสือจะถูกแสดงที่นี่</p>
+      <Link href={"/books"}><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-4">ย้อนกลับ</button></Link>
+      {/*<h1 className="text-2xl font-bold mb-4">รายละเอียดหนังสือ {id}</h1>*/}
       {book ? (
         <div className="bg-white p-4 rounded shadow">
           <h2 className="text-xl font-semibold mb-2">{book.title}</h2>

@@ -37,7 +37,7 @@ export default function BooksPage() {
                 {/*<p className="text-gray-600 mb-2">ISBN: {book.isbn}</p>*/}
                 <p className="text-gray-700">จำนวน : คงเหลือ {book.stock} </p>
 
-                <Link href={`/books/${book._id}`} className="bg-emerald-600 w-full py-2 hover:bg-emerald-700 text-white mt-2">ดูรายละเอียด</Link>
+                <Link href={`/books/${book._id}`} ><button className="bg-emerald-600 w-full py-2 hover:bg-emerald-700 text-white mt-2">ดูรายละเอียด</button></Link>
               </div>
             </li>
           ))}
