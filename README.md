@@ -1,5 +1,7 @@
 ## Online Library (ยังไม่เสร็จสมบูรณ์)
 
+## Preview (กำลังทำ)
+![Peview](./public/Main.png)
 
 ## Technology
  - Next.js
