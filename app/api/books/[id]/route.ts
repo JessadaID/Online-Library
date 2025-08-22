@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import  { dbConnect }  from "../../../lib/db";
+import { dbConnect } from "../../../lib/db";
 import { Book } from "../../../model/Book";
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     await dbConnect();
-    const bookId = params.id;
-    const book = await Book.findById(bookId);
+    const { id } = await params;
+    const book = await Book.findById(id);
     if (!book) {
       return NextResponse.json({ message: "Book not found" }, { status: 404 });
     }

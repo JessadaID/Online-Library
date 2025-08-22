@@ -16,16 +16,14 @@ export default function Login() {
         },
         body: JSON.stringify({ email, password }),
       });
-      if (!response.ok) {
-        throw new Error("Login failed");
+      const data = await response.json();
+      if (response.status === 200) {
+        alert("Login successful");
       }
     } catch (error) {
       console.error("Login failed:", error);
       alert("Login failed");
     }
-    /*
-        console.log("Email:", email);
-        console.log("Password:", password);*/
   }
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
