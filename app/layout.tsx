@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" crxemulator="">
+    <html lang="en">
       <body className={`${sarabun.className} antialiased`}>
         <UserProvider>
           <Navbar />
