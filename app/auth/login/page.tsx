@@ -1,13 +1,17 @@
 "use client";
-
 import { useState } from "react";
+import { useRouter } from 'next/navigation'; // เปลี่ยนจาก 'next/router'
+import { useUser } from '../../context/UserContext';
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter(); // ย้ายออกมาไว้ที่ระดับ component
+  const { setUserData } = useUser(); // ใช้ context เพื่อจัดการ user
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
+
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
@@ -16,15 +20,21 @@ export default function Login() {
         },
         body: JSON.stringify({ email, password }),
       });
+
       const data = await response.json();
+
       if (response.status === 200) {
         alert("Login successful");
+        localStorage.setItem("user", JSON.stringify(data.user));
+        setUserData(data.user); // ใช้ context เพื่อจัดการ user
+        router.push("/"); // ใช้ router ที่ประกาศไว้ด้านบน
       }
     } catch (error) {
       console.error("Login failed:", error);
       alert("Login failed");
     }
   }
+
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
